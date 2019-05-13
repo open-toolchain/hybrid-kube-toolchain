@@ -46,9 +46,14 @@ services:
           REGISTRY_REGION_ID: '{{form.pipeline.parameters.registry-region}}'
           REGISTRY_NAMESPACE: '{{form.pipeline.parameters.registry-namespace}}'
           API_KEY: '{{form.pipeline.parameters.api-key}}'
-          PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
-          PROD_RESOURCE_GROUP: '{{form.pipeline.parameters.prod-resource-group}}'
-          PROD_CLUSTER_NAME: '{{form.pipeline.parameters.prod-cluster-name}}'
+          STAGING_REGION_ID: '{{form.pipeline.parameters.staging-region}}'
+          STAGING_RESOURCE_GROUP: '{{form.pipeline.parameters.staging-resource-group}}'
+          STAGING_CLUSTER_NAME: '{{form.pipeline.parameters.staging-cluster-name}}'
+          STAGING_CLUSTER_NAMESPACE: '{{form.pipeline.parameters.staging-cluster-namespace}}'
+          PROD_KUBE_MASTER_ADDRESS: '{{form.pipeline.parameters.prod-kube-master-address}}'
+          PROD_KUBER_MASTER_PORT: '{{form.pipeline.parameters.prod-kube-master-port}}'
+          PROD_KUBE_SERVICE_ACCOUNT_NAME: '{{form.pipeline.parameters.prod-kube-service-account-name}}'
+          PROD_KUBE_SERVICE_ACCOUNT_TOKEN: '{{form.pipeline.parameters.prod-kube-service-account-token}}'
           PROD_CLUSTER_NAMESPACE: '{{form.pipeline.parameters.prod-cluster-namespace}}'
         execute: true
   webide:
@@ -57,6 +62,9 @@ form:
   pipeline:
     parameters:
       app-name: '{{services.repo.parameters.repo_name}}'
+      staging-cluster-namespace: staging
+      prod-kube-master-port: 8001
+      prod-kube-service-account-name: default
       prod-cluster-namespace: prod
     schema:
       $ref: deploy.json
