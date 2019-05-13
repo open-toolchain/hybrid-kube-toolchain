@@ -75,6 +75,13 @@
           },
           "type": "string"
       },
+      "prod-service-account-name": {
+          "description": {
+            "$ref" : "#/messages/deploy.serviceAccountNameDescription"
+          },
+          "type": "string",
+          "pattern": "\\S"
+      },
       "prod-service-account-token": {
           "description": {
             "$ref" : "#/messages/deploy.serviceAccountTokenDescription"

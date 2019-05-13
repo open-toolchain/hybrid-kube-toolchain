@@ -63,22 +63,30 @@
         "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
       },
       "prod-kube-master-address": {
-        "description": "Kubernetes cluster master address",
+        "description": {
+            "$ref": "#/messages/deploy.kubeMasterAddressDescription"
+        },
         "type": "string",
         "pattern": "\\S"
       },
       "prod-kube-master-port": {
-        "description": "Kubernetes cluster master port",
+        "description": {
+            "$ref": "#/messages/deploy.kubeMasterPortDescription"
+        },
         "type": "string",
         "pattern": "\\S"
       },
       "prod-kube-service-account-name": {
-        "description": "Kubernetes cluster service account name",
+        "description": {
+            "$ref": "#/messages/deploy.serviceAccountNameDescription"
+        },
         "type": "string",
         "pattern": "\\S"
       },
       "prod-kube-service-account-token": {
-        "description": "Kubernetes cluster service account token",
+        "description": {
+            "$ref": "#/messages/deploy.serviceAccountTokenDescription"
+        },
         "type": "string",
         "pattern": "\\S"
       },
@@ -127,7 +135,9 @@
         {
             "type": "password",
             "readonly": false,
-            "title": "IBM Cloud API key",
+            "title": {
+                "$ref": "#/messages/deploy.apikey"
+            }
             "key": "api-key"
         },           
         {
@@ -161,12 +171,13 @@
         },     
         {
             "type": "table",
-            "columnCount": 4,
+            "columnCount": 5,
             "widths": [
-                "15%",
-                "28%",
-                "28%",
-                "28%"
+                "16%",
+                "21%",
+                "21%",
+                "21%",
+                "21%"
             ],
             "items": [
                 {
@@ -182,13 +193,19 @@
                 {
                     "type": "label",
                     "title": {
-                        "$ref": "#/messages/clusterName"
+                        "$ref": "#/messages/deploy.rg"
                     }
                 },
                 {
                     "type": "label",
                     "title": {
-                        "$ref": "#/messages/clusterNamespace"
+                        "$ref": "#/messages/deploy.cluster"
+                    }
+                },
+                {
+                    "type": "label",
+                    "title": {
+                        "$ref": "#/messages/deploy.clusterNs"
                     }
                 },
                 {
@@ -203,6 +220,11 @@
                 },
                 {
                     "type": "select",
+                    "key": "staging-resource-group",
+                    "readonly": false
+                },
+                {
+                    "type": "select",
                     "key": "staging-cluster-name",
                     "readonly": false
                 },
@@ -213,24 +235,31 @@
                 },
                 {
                     "type": "label",
+                    "title": ""
+                },
+                {
+                    "type": "label",
                     "title": {
-                        "$ref": "#/messages/prodStage"
+                        "$ref": "#/messages/deploy.kubeMasterAddress"
                     }
                 },
                 {
-                    "type": "text",
-                    "key": "prod-kube-master-address",
-                    "readonly": false
+                    "type": "label",
+                    "title": {
+                        "$ref": "#/messages/deploy.kubeMasterPort"
+                    }
                 },
                 {
-                  "type": "text",
-                  "key": "prod-kube-master-port",
-                  "readonly": false
+                    "type": "label",
+                    "title": {
+                        "$ref": "#/messages/deploy.serviceAccountName"
+                    }
                 },
                 {
-                  "type": "text",
-                  "key": "prod-cluster-namespace",
-                  "readonly": false
+                    "type": "label",
+                    "title": {
+                        "$ref": "#/messages/deploy.serviceAccountToken"
+                    }
                 },
                 {
                     "type": "label",
@@ -252,7 +281,17 @@
                   "type": "text",
                   "key": "prod-cluster-namespace",
                   "readonly": false
-                }
+                },
+                {
+                  "type": "text",
+                  "key": "prod-kube-service-account-name",
+                  "readonly": false
+                },
+                {
+                  "type": "text",
+                  "key": "prod-kube-service-account-token",
+                  "readonly": false
+                },
             ]
         },{
           "type": "table",
