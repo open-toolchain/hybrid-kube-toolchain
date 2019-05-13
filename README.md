@@ -1,4 +1,4 @@
-# ![Icon](./.bluemix/secure-lock-kubernetes.png) Develop a Kubernetes app with hybrid cloud
+# ![Icon](./.bluemix/secure-lock-kubernetes.png) Develop a Kubernetes app across hybrid cloud
 
 
 ### Continuously deliver a secure Docker app in both public Cloud for staging and private Cloud for production 
