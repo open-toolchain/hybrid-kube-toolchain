@@ -105,7 +105,7 @@ stages:
   - type: stage
   properties:
   - name: CLUSTER_NAMESPACE
-    value: ${PROD_CLUSTER_NAMESPACE}
+    value: ${STAGING_CLUSTER_NAMESPACE}
     type: text
   - name: DEPLOYMENT_FILE
     value: deployment.yml
@@ -117,9 +117,9 @@ stages:
   - name: Pre-deploy check
     type: deployer
     target:
-      region_id: ${PROD_REGION_ID}
+      region_id: ${STAGING_REGION_ID}
       api_key: ${API_KEY}
-      kubernetes_cluster: ${PROD_CLUSTER_NAME}
+      kubernetes_cluster: ${STAGING_CLUSTER_NAME}
     script: |
       #!/bin/bash
       # uncomment to debug the script
@@ -137,9 +137,9 @@ stages:
   - name: Deploy to Kubernetes
     type: deployer
     target:
-      region_id: ${PROD_REGION_ID}
+      region_id: ${STAGING_REGION_ID}
       api_key: ${API_KEY}
-      kubernetes_cluster: ${PROD_CLUSTER_NAME}
+      kubernetes_cluster: ${STAGING_CLUSTER_NAME}
     script: |
       #!/bin/bash
       # uncomment to debug the script
@@ -156,10 +156,10 @@ stages:
   - name: Health check
     type: deployer
     target:
-      region_id: ${PROD_REGION_ID}
-      resource_group: ${PROD_RESOURCE_GROUP}
+      region_id: ${STAGING_REGION_ID}
+      resource_group: ${STAGING_RESOURCE_GROUP}
       api_key: ${API_KEY}
-      kubernetes_cluster: ${PROD_CLUSTER_NAME}
+      kubernetes_cluster: ${STAGING_CLUSTER_NAME}
     script: |-
       #!/bin/bash
       # uncomment to debug the script
@@ -191,12 +191,16 @@ stages:
     value: undefined
     type: text
   - name: KUBERNETES_MASTER_ADDRESS
-    value: undefined
+    value: ${PROD_KUBE_MASTER_ADDRESS}
     type: text
+  - name: KUBERNETES_SERVICE_ACCOUNT_NAME
+    type: text
+    value: ${PROD_KUBE_SERVICE_ACCOUNT_NAME}
   - name: KUBERNETES_SERVICE_ACCOUNT_TOKEN
     type: secure
+    value: ${PROD_KUBE_SERVICE_ACCOUNT_TOKEN}
   - name: KUBERNETES_MASTER_PORT
-    value: undefined
+    value: ${PROD_KUBER_MASTER_PORT}
     type: text
   jobs:
   - name: Pre-deploy check
