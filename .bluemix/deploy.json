@@ -324,7 +324,7 @@
                   "readonly": false
                 },
                 {
-                  "type": "text",
+                  "type": "password",
                   "key": "prod-kube-service-account-token",
                   "readonly": false
                 }
