@@ -137,7 +137,7 @@
             "readonly": false,
             "title": {
                 "$ref": "#/messages/deploy.apikey"
-            }
+            },
             "key": "api-key"
         },           
         {
