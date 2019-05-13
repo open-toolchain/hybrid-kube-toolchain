@@ -232,7 +232,19 @@
                     "type": "text",
                     "key": "staging-cluster-namespace",
                     "readonly": false
-                },
+                }
+            ]
+        },
+        {
+            "type": "table",
+            "columnCount": 4,
+            "widths": [
+                "16%",
+                "28%",
+                "28%",
+                "28%"
+            ],
+            "items": [
                 {
                     "type": "label",
                     "title": ""
@@ -252,13 +264,7 @@
                 {
                     "type": "label",
                     "title": {
-                        "$ref": "#/messages/deploy.serviceAccountName"
-                    }
-                },
-                {
-                    "type": "label",
-                    "title": {
-                        "$ref": "#/messages/deploy.serviceAccountToken"
+                        "$ref": "#/messages/deploy.clusterNs"
                     }
                 },
                 {
@@ -281,6 +287,37 @@
                   "type": "text",
                   "key": "prod-cluster-namespace",
                   "readonly": false
+                }
+            ]
+        },
+        {
+            "type": "table",
+            "columnCount": 3,
+            "widths": [
+                "16%",
+                "28%",
+                "56%"
+            ],
+            "items": [
+                {
+                    "type": "label",
+                    "title": ""
+                },
+                {
+                    "type": "label",
+                    "title": {
+                        "$ref": "#/messages/deploy.serviceAccountName"
+                    }
+                },
+                {
+                    "type": "label",
+                    "title": {
+                        "$ref": "#/messages/deploy.serviceAccountToken"
+                    }
+                },
+                {
+                    "type": "label",
+                    "title": ""
                 },
                 {
                   "type": "text",
@@ -291,7 +328,7 @@
                   "type": "text",
                   "key": "prod-kube-service-account-token",
                   "readonly": false
-                },
+                }
             ]
         },{
           "type": "table",
