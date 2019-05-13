@@ -41,7 +41,7 @@ stages:
       # source: https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_prebuild.sh
 
       # Lints Dockerfile and checks presence of registry namespace.
-      source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_prebuild.sh")
+      source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/next/scripts/check_prebuild.sh")
   - name: Build Docker image
     type: builder
     build_type: cr
@@ -66,7 +66,7 @@ stages:
       # Minting image tag using format: BUILD_NUMBER-BRANCH-COMMIT_ID-TIMESTAMP
       # Also copies information into a build.properties file, so they can be reused later on by other scripts (e.g. image url, chart name, ...)
       source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/build_image.sh")
-      $text https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/build_image.sh
+      $text https://raw.githubusercontent.com/open-toolchain/commons/next/scripts/build_image.sh
 - name: VALIDATE
   inputs:
   - type: job
@@ -95,7 +95,7 @@ stages:
       # source: https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_vulnerabilities.sh
 
       # Check for vulnerabilities of built image using Vulnerability Advisor
-      source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_vulnerabilities.sh")
+      source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/next/scripts/check_vulnerabilities.sh")
 - name: STAGING (public)
   inputs:
   - type: job
@@ -133,7 +133,7 @@ stages:
 
       # Checks the IBM Cloud Kubernetes Service cluster is ready, has a namespace configured with access to the private
       # image registry (using an IBM Cloud API Key). 
-      source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_predeploy_kubectl.sh")
+      source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/next/scripts/check_predeploy_kubectl.sh")
   - name: Deploy to Kubernetes
     type: deployer
     target:
@@ -152,7 +152,7 @@ stages:
       # source: https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/deploy_kubectl.sh
 
       # Perform a kubectl deploy of container image and check on outcome
-      source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/deploy_kubectl.sh")
+      source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/next/scripts/deploy_kubectl.sh")
   - name: Health check
     type: deployer
     target:
@@ -172,7 +172,7 @@ stages:
       # source: https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_health.sh
 
       # Check liveness and readiness probes to confirm application is healthy
-      source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_health.sh")
+      source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/next/scripts/check_health.sh")
 - name: PROD (private)
   inputs:
   - type: job
@@ -220,7 +220,7 @@ stages:
 
       # Checks the IBM Cloud Kubernetes Service cluster is ready, has a namespace configured with access to the private
       # image registry (using an IBM Cloud API Key). 
-      source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_predeploy_kubectl.sh")
+      source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/next/scripts/check_predeploy_kubectl.sh")
   - name: Deploy to Kubernetes
     type: deployer
     curatedDockerImage: default
@@ -237,7 +237,7 @@ stages:
       # source: https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/deploy_kubectl.sh
 
       # Perform a kubectl deploy of container image and check on outcome
-      source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/deploy_kubectl.sh")
+      source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/next/scripts/deploy_kubectl.sh")
   - name: Health check
     type: deployer
     curatedDockerImage: default
@@ -254,4 +254,4 @@ stages:
       # source: https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_health.sh
 
       # Check liveness and readiness probes to confirm application is healthy
-      source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_health.sh")
+      source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/next/scripts/check_health.sh")
