@@ -20,10 +20,13 @@ Here are steps to do so using a permanent service account token (see [also](http
 - Log in to your private cluster management console. Also see [Accessing your IBM® Cloud Private cluster by using the management console](https://www.ibm.com/support/knowledgecenter/SSBS6K_2.1.0/manage_cluster/cfc_gui.html?view=kc).
 - Select User Name > Configure client, which is in the upper right of the window.
 - Copy and paste the configuration information to your command line, and press Enter
-- Create target namespace in ICP console if not already existing, either in ICP console or command line: `kubectl create namespace prodk
-- Either create a specific serviceaccount in ICP, or leverage the existing `defaultserviceaccount` as instructed below to retrieve its token
+- Create target namespace in ICP console if not already existing, either in ICP console or command line: 
 ```
 CLUSTER_NAMESPACE=prod
+kubectl create namespace ${CLUSTER_NAMESPACE}
+```
+- Either create a specific serviceaccount in ICP, or leverage the existing `defaultserviceaccount` as instructed below to retrieve its token
+```
 SERVICE_ACCOUNT_NAME=default
 SECRET_NAME=$(kubectl get sa "${SERVICE_ACCOUNT_NAME}" --namespace="${CLUSTER_NAMESPACE}" -o json | jq -r .secrets[].name)
 SERVICE_ACCOUNT_TOKEN=$(kubectl get secret ${SECRET_NAME} --namespace ${CLUSTER_NAMESPACE} -o jsonpath={.data.token} | base64 -D)
