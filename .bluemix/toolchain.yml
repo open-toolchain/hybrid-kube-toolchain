@@ -63,7 +63,7 @@ form:
     parameters:
       app-name: '{{services.repo.parameters.repo_name}}'
       staging-cluster-namespace: staging
-      prod-kube-master-port: 8001
+      prod-kube-master-port: '8001'
       prod-kube-service-account-name: default
       prod-cluster-namespace: prod
     schema:
