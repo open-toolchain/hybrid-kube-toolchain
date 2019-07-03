@@ -12,7 +12,7 @@ Any code change to the Git repo will automatically be built, validated and deplo
 
 ![Icon](./pipeline.png)
 
-### Prerequisites:
+### Prerequisites
 
 #### Using IBM Cloud Private (ICP)
 You need to get a non expiring token to deploy continuously into your ICP cluster. 
@@ -41,6 +41,13 @@ kubectl create clusterrolebinding cd-admin --clusterrole=admin --serviceaccount=
 
 ### To get started, click this button:
 [![Create toolchain](https://cloud.ibm.com/devops/graphics/create_toolchain_button.png)](https://cloud.ibm.com/devops/setup/deploy?repository=https%3A%2F%2Fgithub.com%2Fopen-toolchain%2Fhybrid-kube-toolchain&env_id=ibm:yp:us-south)
+
+### Tutorial steps
+1. Setup this hybrid toolchain demonstrating how to build/test in IKS and deploy into private cluster (e.g. ICP)
+2. See 'prod' deploy failing because cannot connect from IBM Cloud public into private cluster target
+3. Setup a pipeline private worker in that ICP cluster
+4. Re-run the pipeline and see the prod deployment stage succeeding
+
 ---
 ### Learn more 
 
