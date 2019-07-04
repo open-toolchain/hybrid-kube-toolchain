@@ -207,8 +207,7 @@ stages:
   jobs:
   - name: Pre-deploy check
     type: deployer
-    curatedDockerImage: default
-    docker_image: latest
+    docker_image: ibmcom/pipeline-base-image:latest
     deploy_type: customimage
     script: |
       #!/bin/bash
@@ -226,8 +225,7 @@ stages:
       source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/next/scripts/check_predeploy_kubectl.sh")
   - name: Deploy to Kubernetes
     type: deployer
-    curatedDockerImage: default
-    docker_image: latest
+    docker_image: ibmcom/pipeline-base-image:latest
     deploy_type: customimage
     script: |
       #!/bin/bash
@@ -244,8 +242,7 @@ stages:
       source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/next/scripts/deploy_kubectl.sh")
   - name: Health check
     type: deployer
-    curatedDockerImage: default
-    docker_image: latest
+    docker_image: ibmcom/pipeline-base-image:latest
     deploy_type: customimage
     script: |-
       #!/bin/bash
