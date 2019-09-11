@@ -27,6 +27,13 @@ As a cluster administrator, you need first to connect to the prod cluster:
   - Launch docker desktop, ensuring kubernetes is enabled
   - `kubectl config use-context docker-desktop`
 
+#### Find cluster master address/port
+
+- Run command `kubectl cluster-info` will show these information:
+e.g. `Kubernetes master is running at https://kubernetes.docker.internal:6443
+KubeDNS is running at https://kubernetes.docker.internal:6443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy``
+Cluster master address is here `kubernetes.docker.internal` and port is `6443`.
+
 #### Creating namespace
 
 - Create target cluster namespace if not already existing, ie. with command line: 
