@@ -21,7 +21,7 @@ stages:
     type: builder
     artifact_dir: ''
     build_type: shell
-    script: |+
+    script: |-
       #!/bin/bash
       # set -x
 
@@ -96,7 +96,7 @@ stages:
       #    source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_dockerfile.sh")
       # ------------------
       # source: https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_dockerfile.sh
-
+      
       # This script lints Dockerfile.
       source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_dockerfile.sh")
   - name: Check registry
@@ -118,7 +118,7 @@ stages:
       #    source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_registry.sh")
       # ------------------
       # source: https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_registry.sh
-
+      
       # This script checks presence of registry namespace.
       source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_registry.sh")
   - name: Build container image
@@ -130,7 +130,7 @@ stages:
       api_key: ${API_KEY}
     namespace: ${REGISTRY_NAMESPACE}
     image_name: ${APP_NAME}
-    script: |
+    script: |-
       #!/bin/bash
       # uncomment to debug the script
       # set -x
@@ -140,7 +140,7 @@ stages:
       #    source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/build_image.sh")
       # ------------------
       # source: https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/build_image.sh
-
+      
       # This script does build a Docker image into IBM Container Service private image registry.
       # Minting image tag using format: BUILD_NUMBER-BRANCH-COMMIT_ID-TIMESTAMP
       # Also copies information into a build.properties file, so they can be reused later on by other scripts (e.g. image url, chart name, ...)
@@ -153,7 +153,7 @@ stages:
     target:
       region_id: ${REGISTRY_REGION_ID}
       api_key: ${API_KEY}
-    script: |
+    script: |-
       #!/bin/bash
       # uncomment to debug the script
       # set -x
@@ -192,7 +192,7 @@ stages:
       region_id: ${PROD_REGION_ID}
       api_key: ${API_KEY}
       kubernetes_cluster: ${PROD_CLUSTER_NAME}
-    script: |
+    script: |-
       #!/bin/bash
       # uncomment to debug the script
       # set -x
@@ -202,7 +202,7 @@ stages:
       #    source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_and_deploy_kubectl.sh")
       # ------------------
       # source: https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_and_deploy_kubectl.sh
-
+      
       # This script checks the IBM Container Service cluster is ready, has a namespace configured with access to the private
       # image registry (using an IBM Cloud API Key), perform a kubectl deploy of container image and check on outcome.
       source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_and_deploy_kubectl.sh")
@@ -261,7 +261,7 @@ stages:
       region_id: ${PROD_REGION_ID}
       api_key: ${API_KEY}
       kubernetes_cluster: ${PROD_CLUSTER_NAME}
-    script: |
+    script: |-
       #!/bin/bash
       # uncomment to debug the script
       # set -x
@@ -271,7 +271,7 @@ stages:
       #    source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_and_deploy_kubectl.sh")
       # ------------------
       # source: https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_and_deploy_kubectl.sh
-
+      
       # This script checks the IBM Container Service cluster is ready, has a namespace configured with access to the private
       # image registry (using an IBM Cloud API Key), perform a kubectl deploy of container image and check on outcome.
       source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_and_deploy_kubectl.sh")
@@ -289,6 +289,6 @@ stages:
       #    source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_health.sh")
       # ------------------
       # source: https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_health.sh
-
+      
       # Check liveness and readiness probes to confirm application is healthy
       source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/next/scripts/check_health.sh")
