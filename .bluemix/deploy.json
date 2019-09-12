@@ -316,60 +316,6 @@
             ]
         }, {
             "type": "table",
-            "columnCount": 4,
-            "widths": [
-                "16%",
-                "42%",
-                "21%",
-                "21%"
-            ],
-            "items": [
-                {
-                    "type": "label",
-                    "title": ""
-                },
-                {
-                    "type": "label",
-                    "title": {
-                        "$ref": "#/messages/deploy.kubeMasterAddress"
-                    }
-                },
-                {
-                    "type": "label",
-                    "title": {
-                        "$ref": "#/messages/deploy.kubeMasterPort"
-                    }
-                },
-                {
-                    "type": "label",
-                    "title": {
-                        "$ref": "#/messages/deploy.clusterNs"
-                    }
-                },
-                {
-                    "type": "label",
-                    "title": {
-                        "$ref": "#/messages/prodStage"
-                    }
-                },
-                {
-                    "type": "text",
-                    "key": "prod-kube-master-address",
-                    "readonly": false
-                },
-                {
-                  "type": "text",
-                  "key": "prod-kube-master-port",
-                  "readonly": false
-                },
-                {
-                  "type": "text",
-                  "key": "prod-cluster-namespace",
-                  "readonly": false
-                }
-            ]
-        }, {
-            "type": "table",
             "columnCount": 3,
             "widths": [
                 "16%",
