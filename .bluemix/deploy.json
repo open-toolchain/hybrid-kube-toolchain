@@ -314,7 +314,7 @@
                   "readonly": false
                 }
             ]
-        {
+        }, {
             "type": "table",
             "columnCount": 4,
             "widths": [
