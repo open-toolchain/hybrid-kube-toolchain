@@ -177,7 +177,7 @@ stages:
     value: build.properties
     type: file
   - name: CLUSTER_NAMESPACE
-    value: ${PROD_CLUSTER_NAMESPACE}
+    value: ${STAGING_CLUSTER_NAMESPACE}
     type: text
   - name: DEPLOYMENT_FILE
     value: deployment.yml
@@ -189,9 +189,9 @@ stages:
   - name: Deploy to Kubernetes
     type: deployer
     target:
-      region_id: ${PROD_REGION_ID}
+      region_id: ${STAGING_REGION_ID}
       api_key: ${API_KEY}
-      kubernetes_cluster: ${PROD_CLUSTER_NAME}
+      kubernetes_cluster: ${STAGING_CLUSTER_NAME}
     script: |-
       #!/bin/bash
       # uncomment to debug the script
@@ -209,10 +209,10 @@ stages:
   - name: Check health
     type: deployer
     target:
-      region_id: ${PROD_REGION_ID}
-      resource_group: ${PROD_RESOURCE_GROUP}
+      region_id: ${STAGING_REGION_ID}
+      resource_group: ${STAGING_RESOURCE_GROUP}
       api_key: ${API_KEY}
-      kubernetes_cluster: ${PROD_CLUSTER_NAME}
+      kubernetes_cluster: ${STAGING_CLUSTER_NAME}
     script: |-
       #!/bin/bash
       # uncomment to debug the script
@@ -228,8 +228,8 @@ stages:
 - name: PROD (private)
   inputs:
   - type: job
-    stage: BUILD
-    job: Build Docker image
+    stage: CONTAINERIZE
+    job: Build container image
   triggers:
   - type: stage
   properties:
@@ -257,10 +257,8 @@ stages:
   jobs:
   - name: Deploy to Kubernetes
     type: deployer
-    target:
-      region_id: ${PROD_REGION_ID}
-      api_key: ${API_KEY}
-      kubernetes_cluster: ${PROD_CLUSTER_NAME}
+    docker_image: ibmcom/pipeline-base-image:latest
+    deploy_type: customimage
     script: |-
       #!/bin/bash
       # uncomment to debug the script
@@ -275,7 +273,7 @@ stages:
       # This script checks the IBM Container Service cluster is ready, has a namespace configured with access to the private
       # image registry (using an IBM Cloud API Key), perform a kubectl deploy of container image and check on outcome.
       source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_and_deploy_kubectl.sh")
-  - name: Health check
+  - name: Check health
     type: deployer
     docker_image: ibmcom/pipeline-base-image:latest
     deploy_type: customimage
@@ -289,6 +287,5 @@ stages:
       #    source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_health.sh")
       # ------------------
       # source: https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_health.sh
-      
       # Check liveness and readiness probes to confirm application is healthy
-      source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/next/scripts/check_health.sh")
+      source <(curl -sSL "https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_health.sh")
