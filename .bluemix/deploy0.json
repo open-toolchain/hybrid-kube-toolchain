@@ -1,0 +1,360 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "messages": {
+        "$i18n": "locales.yml"
+    },
+    "title": {
+        "$ref": "#/messages/deploy.title"
+    },
+    "description": {
+        "$ref": "#/messages/deploy.description"
+    },
+    "longDescription": {
+        "$ref": "#/messages/deploy.longDescription"
+    },
+    "type": "object",
+    "properties": {
+      "api-key": {
+          "description": {
+            "$ref": "#/messages/deploy.apikeyDescription"
+          },
+          "type": "string",
+          "pattern": "\\S"
+      },
+      "registry-region": {
+        "description": {
+          "$ref" : "#/messages/deploy.registryRegionDescription"
+        },
+        "type": "string",
+        "disabled": false
+      },
+     "registry-namespace": {
+        "description": {
+          "$ref" : "#/messages/deploy.registrynsDescription"
+        },
+        "type": "string",
+        "pattern": "^[a-z0-9][-_a-z0-9]{2,28}[a-z0-9]$"
+      },
+      "staging-region": {
+          "description": {
+            "$ref" : "#/messages/deploy.regionDescription"
+          },
+          "type": "string",
+          "disabled": false
+      },
+      "staging-resource-group": {
+          "description": {
+            "$ref" : "#/messages/deploy.rgDescription"
+          },
+          "type": "string"
+      },
+      "staging-cluster-name": {
+          "description": {
+            "$ref" : "#/messages/deploy.clusterNameDescription"
+          },
+          "type": "string",
+          "pattern": "\\S"
+      },
+      "staging-cluster-namespace": {
+        "description": {
+          "$ref" : "#/messages/deploy.namespaceDescription"
+        },
+        "type": "string",
+        "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+      },
+      "prod-kube-master-address": {
+        "description": {
+            "$ref": "#/messages/deploy.kubeMasterAddressDescription"
+        },
+        "type": "string",
+        "pattern": "\\S"
+      },
+      "prod-kube-master-port": {
+        "description": {
+            "$ref": "#/messages/deploy.kubeMasterPortDescription"
+        },
+        "type": "string",
+        "pattern": "\\S"
+      },
+      "prod-kube-service-account-name": {
+        "description": {
+            "$ref": "#/messages/deploy.serviceAccountNameDescription"
+        },
+        "type": "string",
+        "pattern": "\\S"
+      },
+      "prod-kube-service-account-token": {
+        "description": {
+            "$ref": "#/messages/deploy.serviceAccountTokenDescription"
+        },
+        "type": "string",
+        "pattern": "\\S"
+      },
+      "prod-cluster-namespace": {
+        "description": "Prod namespace",
+        "type": "string",
+        "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+      },
+      "app-name": {
+        "description": {
+            "$ref": "#/messages/deploy.appDescription"
+        },
+        "type": "string",
+        "pattern": "\\S"
+      }
+    },
+    "required": [
+        "api-key",
+        "registry-region",
+        "registry-namespace",
+        "staging-region",
+        "staging-resource-group",
+        "staging-cluster-name",
+        "staging-cluster-namespace",        
+        "prod-kube-master-address",
+        "prod-kube-master-port",
+        "prod-kube-service-account-name",
+        "prod-kube-service-account-token",
+        "prod-cluster-namespace",
+        "app-name"
+    ],
+    "form": [
+        {
+            "type": "validator",
+            "url": "/devops/setup/bm-helper/custom_helper.html"
+        },
+        {
+            "type": "text",
+            "readonly": false,
+            "title": {
+                "$ref": "#/messages/deploy.appName"
+            },
+            "key": "app-name"
+        },
+        {
+            "type": "password",
+            "readonly": false,
+            "title": {
+                "$ref": "#/messages/deploy.apikey"
+            },
+            "key": "api-key"
+        },           
+        {
+          "type": "table",
+          "columnCount": 3,
+            "widths": ["50%", "3%", "47%"],
+            "items": [
+                {
+                  "type": "label",
+                  "title": "Container registry region"
+                },{
+                  "type": "label",
+                  "title": ""
+                },{                    
+                  "type": "label",
+                  "title": "Container registry namespace"
+                },{
+                  "type": "select",
+                  "title": "Container image registry region",
+                  "key": "registry-region"
+                },{
+                  "type": "label",
+                  "title": ""
+                },{
+                  "type": "text",
+                  "readonly": false,
+                  "title": "Container image registry namespace",
+                  "key": "registry-namespace"
+                }
+            ]
+        },     
+        {
+            "type": "table",
+            "columnCount": 5,
+            "widths": [
+                "16%",
+                "21%",
+                "21%",
+                "21%",
+                "21%"
+            ],
+            "items": [
+                {
+                    "type": "label",
+                    "title": ""
+                },
+                {
+                    "type": "label",
+                    "title": {
+                        "$ref": "#/messages/region"
+                    }
+                },
+                {
+                    "type": "label",
+                    "title": {
+                        "$ref": "#/messages/deploy.rg"
+                    }
+                },
+                {
+                    "type": "label",
+                    "title": {
+                        "$ref": "#/messages/deploy.cluster"
+                    }
+                },
+                {
+                    "type": "label",
+                    "title": {
+                        "$ref": "#/messages/deploy.clusterNs"
+                    }
+                },
+                {
+                    "type": "label",
+                    "title": {
+                        "$ref": "#/messages/testStage"
+                    }
+                },
+                {
+                    "type": "select",
+                    "key": "staging-region"
+                },
+                {
+                    "type": "select",
+                    "key": "staging-resource-group",
+                    "readonly": false
+                },
+                {
+                    "type": "select",
+                    "key": "staging-cluster-name",
+                    "readonly": false
+                },
+                {
+                    "type": "text",
+                    "key": "staging-cluster-namespace",
+                    "readonly": false
+                }
+            ]
+        },
+        {
+            "type": "table",
+            "columnCount": 4,
+            "widths": [
+                "16%",
+                "42%",
+                "21%",
+                "21%"
+            ],
+            "items": [
+                {
+                    "type": "label",
+                    "title": ""
+                },
+                {
+                    "type": "label",
+                    "title": {
+                        "$ref": "#/messages/deploy.kubeMasterAddress"
+                    }
+                },
+                {
+                    "type": "label",
+                    "title": {
+                        "$ref": "#/messages/deploy.kubeMasterPort"
+                    }
+                },
+                {
+                    "type": "label",
+                    "title": {
+                        "$ref": "#/messages/deploy.clusterNs"
+                    }
+                },
+                {
+                    "type": "label",
+                    "title": {
+                        "$ref": "#/messages/prodStage"
+                    }
+                },
+                {
+                    "type": "text",
+                    "key": "prod-kube-master-address",
+                    "readonly": false
+                },
+                {
+                  "type": "text",
+                  "key": "prod-kube-master-port",
+                  "readonly": false
+                },
+                {
+                  "type": "text",
+                  "key": "prod-cluster-namespace",
+                  "readonly": false
+                }
+            ]
+        },
+        {
+            "type": "table",
+            "columnCount": 3,
+            "widths": [
+                "16%",
+                "28%",
+                "56%"
+            ],
+            "items": [
+                {
+                    "type": "label",
+                    "title": ""
+                },
+                {
+                    "type": "label",
+                    "title": {
+                        "$ref": "#/messages/deploy.serviceAccountName"
+                    }
+                },
+                {
+                    "type": "label",
+                    "title": {
+                        "$ref": "#/messages/deploy.serviceAccountToken"
+                    }
+                },
+                {
+                    "type": "label",
+                    "title": ""
+                },
+                {
+                  "type": "text",
+                  "key": "prod-kube-service-account-name",
+                  "readonly": false
+                },
+                {
+                  "type": "password",
+                  "key": "prod-kube-service-account-token",
+                  "readonly": false
+                }
+            ]
+        },{
+          "type": "table",
+          "columnCount": 2,
+            "widths": ["15%", "80%"],
+            "items": [
+                {
+                  "type": "label",
+                  "title": ""
+                },{
+                  "type": "label",
+                  "title": "Retrieve the Kubernetes cluster name with the CLI command 'ibmcloud cs clusters' or via the [console](https://cloud.ibm.com/containers-kubernetes/home/clusters)."
+                }
+            ]
+        },{
+          "type": "table",
+          "columnCount": 2,
+            "widths": ["15%", "80%"],
+            "items": [
+                {
+                  "type": "label",
+                  "title": ""
+                },{
+                  "type": "label",
+                  "title": "If the cluster namespace doesn't exist already, it will be automatically created and configured."
+                }
+            ]
+        }
+    ]
+}
