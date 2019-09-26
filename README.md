@@ -77,6 +77,12 @@ echo ${SERVICE_ACCOUNT_TOKEN}
 kubectl create clusterrolebinding cd-admin --clusterrole=admin --serviceaccount=${CLUSTER_NAMESPACE}:${SERVICE_ACCOUNT_NAME} 
 ```
 
+- If targeting OCP online, instead:
+```
+# grant admin permission (rbac)
+kubectl create rolebinding cd-admin --clusterrole=admin --serviceaccount=${CLUSTER_NAMESPACE}:${SERVICE_ACCOUNT_NAME} --namespace=${CLUSTER_NAMESPACE}
+```
+
 #### Get permanent token for service account
 - Copy and save the value of `SERVICE_ACCOUNT_TOKEN`, it will be needed for later configuring pipeline in IBM Cloud public
 
