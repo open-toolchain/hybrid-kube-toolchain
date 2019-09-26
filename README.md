@@ -26,6 +26,9 @@ As a cluster administrator, you need first to connect to the prod cluster:
 - Connecting to local Docker Desktop (https://www.docker.com/products/docker-desktop)
   - Launch docker desktop, ensuring kubernetes is enabled
   - `kubectl config use-context docker-desktop`
+- Connecting to an OpenShift online cluster (https://manage.openshift.com/)
+  - In cluster console, select User Name > Copy Login Command
+  - Copy and paste the configuration information to you command line, and press Enter
 
 #### Find cluster master address/port
 
@@ -43,6 +46,11 @@ Cluster master address is here `kubernetes.docker.internal` and port is `6443`.
 CLUSTER_NAMESPACE=prod
 kubectl create namespace ${CLUSTER_NAMESPACE}
 ```
+- If targeting OCP online, instead:
+```
+CLUSTER_NAMESPACE=prod
+oc new-project  ${CLUSTER_NAMESPACE}
+```
 
 #### Creating service account
 
@@ -51,6 +59,13 @@ kubectl create namespace ${CLUSTER_NAMESPACE}
 SERVICE_ACCOUNT_NAME=default
 SECRET_NAME=$(kubectl get sa "${SERVICE_ACCOUNT_NAME}" --namespace="${CLUSTER_NAMESPACE}" -o json | jq -r .secrets[].name)
 SERVICE_ACCOUNT_TOKEN=$(kubectl get secret ${SECRET_NAME} --namespace ${CLUSTER_NAMESPACE} -o jsonpath={.data.token} | base64 -D)
+echo ${SERVICE_ACCOUNT_TOKEN}
+```
+- If targeting OCP online, instead:
+```
+SERVICE_ACCOUNT_NAME=default
+SECRET_NAME=$(kubectl get sa "${SERVICE_ACCOUNT_NAME}" --namespace="${CLUSTER_NAMESPACE}" -o json | jq -r .secrets[].name)
+SERVICE_ACCOUNT_TOKEN=$(kubectl get secret ${SECRET_NAME} --namespace ${CLUSTER_NAMESPACE} -o json | jq -r '.items[].data.token' | base64 -D)
 echo ${SERVICE_ACCOUNT_TOKEN}
 ```
 
