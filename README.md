@@ -57,15 +57,8 @@ oc new-project  ${CLUSTER_NAMESPACE}
 - Either create a specific serviceaccount in cluster, or leverage the existing `defaultserviceaccount` as instructed below to retrieve its token
 ```
 SERVICE_ACCOUNT_NAME=default
-SECRET_NAME=$(kubectl get sa "${SERVICE_ACCOUNT_NAME}" --namespace="${CLUSTER_NAMESPACE}" -o json | jq -r .secrets[].name)
+SECRET_NAME=$(kubectl get sa "${SERVICE_ACCOUNT_NAME}" --namespace="${CLUSTER_NAMESPACE}" -o json | jq -r .secrets[0].name)
 SERVICE_ACCOUNT_TOKEN=$(kubectl get secret ${SECRET_NAME} --namespace ${CLUSTER_NAMESPACE} -o jsonpath={.data.token} | base64 -D)
-echo ${SERVICE_ACCOUNT_TOKEN}
-```
-- If targeting OCP online, instead:
-```
-SERVICE_ACCOUNT_NAME=default
-SECRET_NAME=$(kubectl get sa "${SERVICE_ACCOUNT_NAME}" --namespace="${CLUSTER_NAMESPACE}" -o json | jq -r .secrets[].name)
-SERVICE_ACCOUNT_TOKEN=$(kubectl get secret ${SECRET_NAME} --namespace ${CLUSTER_NAMESPACE} -o json | jq -r '.items[].data.token' | base64 -D)
 echo ${SERVICE_ACCOUNT_TOKEN}
 ```
 
