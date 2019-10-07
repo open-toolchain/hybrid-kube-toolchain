@@ -15,8 +15,9 @@ Any code change to the Git repo will automatically be built, validated and deplo
 
 ### Prerequisites
 
-You need to get a non expiring token to deploy continuously into your prod Kubernetes cluster.
-This typically is accomplished using a permanent service account token that will be used by pipeline to deploy.
+You need to get a non expiring token to deploy continuously into your prod Kubernetes cluster (ie. most user tokens have a short life span and are not suitable for a long running pipeline). This typically is accomplished using a permanent service account token that will be used by pipeline to deploy, and obtained by a cluster administrator.
+
+Below are suggested instructions for forging such a permanent service account token for different Kubernetes providers, using your cluster admin credentials initially. 
 
 As a cluster administrator, you need first to connect to the prod cluster:
 - Connecting to IBM Cloud Private (ICP)
