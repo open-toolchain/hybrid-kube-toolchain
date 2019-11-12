@@ -36,11 +36,12 @@ As a cluster administrator, you need first to connect to the prod cluster:
 
 - For an ICP or local Docker Desktop target, use the `kubectl` CLI:
   Run command `kubectl cluster-info` will show these information. E.g. 
-```
-Kubernetes master is running at https://kubernetes.docker.internal:6443
-KubeDNS is running at https://kubernetes.docker.internal:6443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
-```
+  ```
+  Kubernetes master is running at https://kubernetes.docker.internal:6443
+  KubeDNS is running at https://kubernetes.docker.internal:6443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+  ```
   Cluster master address is here `kubernetes.docker.internal` and port is `6443`.
+  
 - For an OpenShift Container Platform target, view the cluster server's address and port by using the oc config command:
 `oc config view`
 
