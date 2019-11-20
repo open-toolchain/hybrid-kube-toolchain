@@ -42,8 +42,10 @@ As a cluster administrator, you need first to connect to the prod cluster:
   ```
   Cluster master address is here `kubernetes.docker.internal` and port is `6443`.
   
-- For an OpenShift Container Platform target, view the cluster server's address and port by using the oc config command:
-`oc config view`
+- For an OpenShift Container Platform target, view the cluster server's address and port by using the oc config command: `oc config view`
+  The output of this command indicates the current context. The server adress is the server entry in the clusters lis.
+  If `jq` (https://stedolan.github.io/jq/), and `yq` (https://github.com/mikefarah/yq) are installed, you can run the following command to obtain the openshift server:
+  `oc config view --raw | yq read - --tojson | jq -r --arg current_oc_cluster "$(oc config view --raw | yq read - current-context | awk -F/ '{print $2}')" '.clusters[] | select(.name==$current_oc_cluster) | .cluster.server'`
 
 #### Creating namespace
 
