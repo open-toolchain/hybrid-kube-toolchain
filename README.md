@@ -105,6 +105,24 @@ kubectl create rolebinding cd-admin --clusterrole=admin --serviceaccount=${CLUST
 2. See 'prod' deploy failing because cannot connect from IBM Cloud public into private cluster target
 3. Install a pipeline private worker in that private cluster. 
    - Ensure that this private cluster is allowed to pull images from registries: `ibmcom/*` and `gcr.io/tekton-releases`
+```
+cat <<EOF | kubectl apply -f -
+apiVersion: securityenforcement.admission.cloud.ibm.com/v1beta1
+kind: ClusterImagePolicy
+metadata:
+  name: tekton-private-worker
+spec:
+  repositories:
+  - name: "gcr.io/tekton-releases/*"
+    policy:
+      va:
+        enabled: true
+  - name: "docker.io/ibmcom/*"
+    policy:
+      va:
+        enabled: true
+EOF
+```
    - Install worker: [instructions](https://cloud.ibm.com/docs/services/ContinuousDelivery?topic=ContinuousDelivery-install-private-workers), save its service API key.
 4. Add a toolchain integration with this private pipeline worker, using the above service API key
 5. Configure 'prod' deploy stage to run on the configure private worker
