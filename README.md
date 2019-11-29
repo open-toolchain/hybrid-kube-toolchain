@@ -115,12 +115,8 @@ spec:
   repositories:
   - name: "gcr.io/tekton-releases/*"
     policy:
-      va:
-        enabled: true
   - name: "docker.io/ibmcom/*"
     policy:
-      va:
-        enabled: true
 EOF
 ```
    - Install worker: [instructions](https://cloud.ibm.com/docs/services/ContinuousDelivery?topic=ContinuousDelivery-install-private-workers), save its service API key.
@@ -137,8 +133,6 @@ spec:
   repositories:
   - name: "*.icr.io/*"
     policy:
-      va:
-        enabled: true
 EOF
 ```
 6. Re-run the pipeline and see the prod deployment stage succeeding
