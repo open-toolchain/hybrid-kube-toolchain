@@ -65,6 +65,13 @@ oc new-project  ${CLUSTER_NAMESPACE}
 #### Creating service account
 
 - Either create a specific service account in cluster, or leverage the existing `default` service account as instructed below to retrieve its token.
+  - For Kubernetes clusters (such as ICP):
+    ```
+    SERVICE_ACCOUNT_NAME=default
+    SECRET_NAME=$(kubectl get sa "${SERVICE_ACCOUNT_NAME}" --namespace="${CLUSTER_NAMESPACE}" -o json | jq -r .secrets[0].name)
+    SERVICE_ACCOUNT_TOKEN=$(kubectl get secret ${SECRET_NAME} --namespace ${CLUSTER_NAMESPACE} -o jsonpath={.data.token} | base64 -d)
+    echo ${SERVICE_ACCOUNT_TOKEN}
+    ```
   - For an OCP cluster, use the `oc` CLI:
     ```
     oc project ${CLUSTER_NAMESPACE}
@@ -72,17 +79,10 @@ oc new-project  ${CLUSTER_NAMESPACE}
     SERVICE_ACCOUNT_TOKEN=$(oc serviceaccounts get-token $SERVICE_ACCOUNT_NAME)
     echo ${SERVICE_ACCOUNT_TOKEN}
     ```
-  - For other Kubernetes clusters (such as ICP):
-    ```
-    SERVICE_ACCOUNT_NAME=default
-    SECRET_NAME=$(kubectl get sa "${SERVICE_ACCOUNT_NAME}" --namespace="${CLUSTER_NAMESPACE}" -o json | jq -r .secrets[0].name)
-    SERVICE_ACCOUNT_TOKEN=$(kubectl get secret ${SECRET_NAME} --namespace ${CLUSTER_NAMESPACE} -o jsonpath={.data.token} | base64 -d)
-    echo ${SERVICE_ACCOUNT_TOKEN}
-    ```
-
+    
 #### Grant admin permission to service account
 
-- Ensure admin permission for chosen service account in specific namespace:
+- For Kubernetes cluster, ensure admin permission for chosen service account in specific namespace:
 ```
 # grant admin permission (rbac)
 kubectl create clusterrolebinding cd-admin --clusterrole=admin --serviceaccount=${CLUSTER_NAMESPACE}:${SERVICE_ACCOUNT_NAME} 
@@ -97,21 +97,23 @@ kubectl create rolebinding cd-admin --clusterrole=admin --serviceaccount=${CLUST
 #### Get permanent token for service account
 - Copy and save the value of `SERVICE_ACCOUNT_TOKEN`, it will be needed for later configuring pipeline in IBM Cloud public
 
-
 ### To get started, click this button:
 [![Create toolchain](https://cloud.ibm.com/devops/graphics/create_toolchain_button.png)](https://cloud.ibm.com/devops/setup/deploy?repository=https%3A%2F%2Fgithub.com%2Fopen-toolchain%2Fhybrid-kube-toolchain&env_id=ibm:yp:us-south)
 
 ### Tutorial steps
 1. Setup this hybrid toolchain demonstrating how to build/test in IKS and deploy into private cluster (e.g. ICP or OCP)
 2. See 'prod' deploy failing because cannot connect from IBM Cloud public into private cluster target
-3. Setup a pipeline private worker in that ICP cluster
-4. Re-run the pipeline and see the prod deployment stage succeeding
+3. Install a pipeline private worker in that private cluster ([instructions](https://cloud.ibm.com/docs/services/ContinuousDelivery?topic=ContinuousDelivery-install-private-workers)), save its service API key.
+4. Add a toolchain integration with this private pipeline worker, using the above service API key
+5. Configure 'prod' deploy stage to run on the configure private worker
+6. Re-run the pipeline and see the prod deployment stage succeeding
 
 ---
 ### Learn more 
 
 * Blog [Continuously deliver your app to Kubernetes with IBM Cloud](https://www.ibm.com/blogs/bluemix/2017/07/continuously-deliver-your-app-to-kubernetes-with-bluemix/)
 * Step by step [tutorial](https://www.ibm.com/cloud/garage/tutorials/devops-toolchain-integration?task=7)
+* [Installing a private pipeline worker](https://cloud.ibm.com/docs/services/ContinuousDelivery?topic=ContinuousDelivery-install-private-workers)
 * [Getting started with IBM Cloud Kubernetes](https://cloud.ibm.com/docs/containers?topic=containers-getting-started)
 * [Getting started with IBM Cloud Private](https://www.ibm.com/cloud/private/get-started)
 * [Getting started with toolchains](https://cloud.ibm.com/devops/getting-started)
