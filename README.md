@@ -103,9 +103,12 @@ kubectl create rolebinding cd-admin --clusterrole=admin --serviceaccount=${CLUST
 ### Tutorial steps
 1. Setup this hybrid toolchain demonstrating how to build/test in IKS and deploy into private cluster (e.g. ICP or OCP)
 2. See 'prod' deploy failing because cannot connect from IBM Cloud public into private cluster target
-3. Install a pipeline private worker in that private cluster. Check first that this private cluster is allowed to pull images from IBM Cloud image registry (: ([instructions](https://cloud.ibm.com/docs/services/ContinuousDelivery?topic=ContinuousDelivery-install-private-workers)), save its service API key.
+3. Install a pipeline private worker in that private cluster. 
+   - Ensure that this private cluster is allowed to pull images from registries: `ibmcom/*` and `gcr.io/tekton-releases`
+   - Install worker: [instructions](https://cloud.ibm.com/docs/services/ContinuousDelivery?topic=ContinuousDelivery-install-private-workers)), save its service API key.
 4. Add a toolchain integration with this private pipeline worker, using the above service API key
 5. Configure 'prod' deploy stage to run on the configure private worker
+   - Ensure this private cluster is allowed to pull images from IKS registry: `*.icr.io/*`
 6. Re-run the pipeline and see the prod deployment stage succeeding
 
 ---
