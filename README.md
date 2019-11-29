@@ -111,7 +111,7 @@ kubectl create rolebinding cd-admin --clusterrole=admin --serviceaccount=${CLUST
 ### Learn more 
 
 * Blog [Continuously deliver your app to Kubernetes with IBM Cloud](https://www.ibm.com/blogs/bluemix/2017/07/continuously-deliver-your-app-to-kubernetes-with-bluemix/)
-* Step by step [tutorial](https://www.ibm.com/devops/method/tutorials/tc_hybrid_kube)
+* Step by step [tutorial](https://www.ibm.com/cloud/garage/tutorials/devops-toolchain-integration?task=7)
 * [Getting started with IBM Cloud Kubernetes](https://cloud.ibm.com/docs/containers?topic=containers-getting-started)
 * [Getting started with IBM Cloud Private](https://www.ibm.com/cloud/private/get-started)
 * [Getting started with toolchains](https://cloud.ibm.com/devops/getting-started)
