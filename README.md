@@ -142,7 +142,7 @@ EOF
 
 #### Pipeline DEPLOY (private) failing: "error: You must be logged in to the server (Unauthorized)"
 
-Check that a valid service account token has been configured with the pipeline property. Could occur over time when target clusters gets recreated, and forgot to re-run steps above to obtain a new service account token.
+Check that a valid service account token has been configured in the pipeline. This would typically occur over time when the target cluster got recreated, and forgot to re-run steps above to obtain a new service account token.
 
 The service account token is configured in pipeline "DEPLOY (private)" stage, under its environmnent properties tab, property name is: KUBERNETES_SERVICE_ACCOUNT_TOKEN.
 
