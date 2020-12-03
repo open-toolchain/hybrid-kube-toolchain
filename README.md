@@ -54,15 +54,15 @@ As a cluster administrator, you need first to connect to the prod cluster:
 
 - Create target cluster namespace if not already existing, ie. with command line: 
   - For a plain Kubernetes cluster target, use the `kubectl` CLI:
-```
-CLUSTER_NAMESPACE=prod
-kubectl create namespace ${CLUSTER_NAMESPACE}
-```
+  ```
+  CLUSTER_NAMESPACE=prod
+  kubectl create namespace ${CLUSTER_NAMESPACE}
+  ```
   - For an OpenShift cluster, use the `oc` CLI:
-```
-CLUSTER_NAMESPACE=prod
-oc new-project  ${CLUSTER_NAMESPACE}
-```
+  ```
+  CLUSTER_NAMESPACE=prod
+  oc new-project  ${CLUSTER_NAMESPACE}
+  ```
 
 #### Creating service account
 
