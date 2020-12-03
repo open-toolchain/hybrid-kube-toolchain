@@ -19,16 +19,17 @@ You need to get a non expiring token to deploy continuously into your prod Kuber
 
 Below are suggested instructions for forging such a permanent service account token for different Kubernetes providers, using your cluster admin credentials initially. 
 
-As a cluster administrator, you need first to connect to the prod cluster:
-- Connecting to IBM Cloud Private (ICP)
-  - Available as [hosted trial](https://www.ibm.com/cloud/garage/dte/tutorial/ibm-cloud-private-hosted-trial) 
-  - See [also](https://www.ibm.com/developerworks/community/blogs/fe25b4ef-ea6a-4d86-a629-6f87ccf4649e/entry/Configuring_the_Kubernetes_CLI_by_using_service_account_tokens1?lang=en).
-  - Log in to your private cluster management console. Also see [Accessing your IBM® Cloud Private cluster by using the management console](https://www.ibm.com/support/knowledgecenter/SSBS6K_2.1.0/manage_cluster/cfc_gui.html?view=kc).
+As a cluster administrator, you will need to be able to issue commands via CLI against the prod target cluster to generate proper credentials for the pipeline.
+- For a plain Kubernetes cluster, follow the instructions of the provider to access it from command line.
+  - Specifically, if connecting to local Docker Desktop (https://www.docker.com/products/docker-desktop)
+    - Launch docker desktop, ensuring kubernetes is enabled
+    - `kubectl config use-context docker-desktop`
+  - Connecting to IBM Cloud Private (ICP)
+    - Available as [hosted trial](https://www.ibm.com/cloud/garage/dte/tutorial/ibm-cloud-private-hosted-trial) 
+    - See [also](https://www.ibm.com/developerworks/community/blogs/fe25b4ef-ea6a-4d86-a629-6f87ccf4649e/entry/Configuring_the_Kubernetes_CLI_by_using_service_account_tokens1?lang=en).
+    - Log in to your private cluster management console. Also see [Accessing your IBM® Cloud Private cluster by using the management console](https://www.ibm.com/support/knowledgecenter/SSBS6K_2.1.0/manage_cluster/cfc_gui.html?view=kc).
   - Select User Name > Configure client, which is in the upper right of the window.
   - Copy and paste the configuration information to your command line, and press Enter 
-- Connecting to local Docker Desktop (https://www.docker.com/products/docker-desktop)
-  - Launch docker desktop, ensuring kubernetes is enabled
-  - `kubectl config use-context docker-desktop`
 - Connecting to OpenShift Container Platform such as an online cluster (https://manage.openshift.com/)
   - In cluster console, select User Name > Copy Login Command
   - Copy and paste the configuration information to you command line, and press Enter
