@@ -35,7 +35,7 @@ As a cluster administrator, you need first to connect to the prod cluster:
 
 #### Find cluster master address/port
 
-- For an ICP or local Docker Desktop target, use the `kubectl` CLI:
+- For a plain Kubernetes target, use the `kubectl` CLI:
   Run command `kubectl cluster-info` will show these information. E.g. 
   ```
   Kubernetes master is running at https://kubernetes.docker.internal:6443
@@ -53,11 +53,12 @@ As a cluster administrator, you need first to connect to the prod cluster:
 #### Creating namespace
 
 - Create target cluster namespace if not already existing, ie. with command line: 
+  - For a plain Kubernetes cluster target, use the `kubectl` CLI:
 ```
 CLUSTER_NAMESPACE=prod
 kubectl create namespace ${CLUSTER_NAMESPACE}
 ```
-- If the target is an OCP, use instead:
+  - For an OpenShift cluster, use the `oc` CLI:
 ```
 CLUSTER_NAMESPACE=prod
 oc new-project  ${CLUSTER_NAMESPACE}
@@ -66,14 +67,14 @@ oc new-project  ${CLUSTER_NAMESPACE}
 #### Creating service account
 
 - Either create a specific service account in cluster, or leverage the existing `default` service account as instructed below to retrieve its token.
-  - For Kubernetes clusters (such as ICP):
+  - For a plain Kubernetes cluster target, use the `kubectl` CLI:
     ```
     SERVICE_ACCOUNT_NAME=default
     SECRET_NAME=$(kubectl get sa "${SERVICE_ACCOUNT_NAME}" --namespace="${CLUSTER_NAMESPACE}" -o json | jq -r .secrets[0].name)
     SERVICE_ACCOUNT_TOKEN=$(kubectl get secret ${SECRET_NAME} --namespace ${CLUSTER_NAMESPACE} -o jsonpath={.data.token} | base64 -d)
     echo ${SERVICE_ACCOUNT_TOKEN}
     ```
-  - For an OCP cluster, use the `oc` CLI:
+  - For an OpenShift cluster, use the `oc` CLI:
     ```
     oc project ${CLUSTER_NAMESPACE}
     SERVICE_ACCOUNT_NAME=default
@@ -83,13 +84,13 @@ oc new-project  ${CLUSTER_NAMESPACE}
     
 #### Grant admin permission to service account
 
-- For Kubernetes cluster, ensure admin permission for chosen service account in specific namespace:
+- For a plain Kubernetes cluster target, ensure admin permission for chosen service account in specific namespace:
 ```
 # grant admin permission (rbac)
 kubectl create clusterrolebinding cd-admin --clusterrole=admin --serviceaccount=${CLUSTER_NAMESPACE}:${SERVICE_ACCOUNT_NAME} 
 ```
 
-- If target is OCP cluster, instead use the following to scope in specific namespace only:
+- If target is OpenShift cluster, instead use the following to scope in specific namespace only:
 ```
 # grant admin permission (rbac)
 kubectl create rolebinding cd-admin --clusterrole=admin --serviceaccount=${CLUSTER_NAMESPACE}:${SERVICE_ACCOUNT_NAME} --namespace=${CLUSTER_NAMESPACE}
